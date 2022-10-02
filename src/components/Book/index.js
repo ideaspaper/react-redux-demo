@@ -1,16 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { fetchBooks } from '../../store/slices/booksSlice';
-import { deleteBook } from '../../store/slices/bookSlice';
+import { useDeleteBookMutation } from '../../store/slices/apiSlice';
 
 const BookComponent = ({ book }) => {
-  const dispatch = useDispatch();
+  const [deleteBook] = useDeleteBookMutation();
 
   const handleOnClick = () => {
-    dispatch(deleteBook(book.id))
+    deleteBook(book.id)
       .unwrap()
-      .then(() => {
-        dispatch(fetchBooks());
-      })
       .catch((error) => {
         console.log(error);
       });

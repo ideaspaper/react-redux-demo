@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useAddBookMutation } from '../../store/slices/apiSlice';
 import {
   setTitleAddBook,
   setAuthorAddBook,
   setImageUrlAddBook,
   setSynopsisAddBook,
   setPriceAddBook,
-  addBook,
   clearAddBook
 } from '../../store/slices/bookSlice';
 
@@ -14,6 +14,8 @@ const AddBookPage = () => {
   const { title, author, imageUrl, synopsis, price } = useSelector((state) => state.addBook);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [addBook] = useAddBookMutation();
 
   const onChangeHandler = (event) => {
     switch (event.target.name) {
@@ -39,7 +41,7 @@ const AddBookPage = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(addBook({ title, author, imageUrl, synopsis, price }))
+    addBook({ title, author, imageUrl, synopsis, price })
       .unwrap()
       .then(() => {
         dispatch(clearAddBook());

@@ -1,40 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-export const addBook = createAsyncThunk('book/add', (book, thunkAPI) => {
-  return fetch(`http://localhost:8080/books`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(book)
-  })
-    .then((response) => {
-      if (!response.ok) throw new Error('failed to add book');
-      return response.json();
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      throw error;
-    });
-});
-
-export const deleteBook = createAsyncThunk('book/delete', (bookId, thunkAPI) => {
-  return fetch(`http://localhost:8080/books/${bookId}`, {
-    method: 'DELETE'
-  })
-    .then((response) => {
-      if (!response.ok) throw new Error('failed to delete book');
-      return response.json();
-    })
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => {
-      throw error;
-    });
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 export const addBookSlice = createSlice({
   name: 'book',

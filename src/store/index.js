@@ -1,12 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './slices/counterSlice';
 import { addBookReducer } from './slices/bookSlice';
-import booksReducer from './slices/booksSlice';
+import { apiSlice } from './slices/apiSlice';
+import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     addBook: addBookReducer,
-    books: booksReducer
+    [apiSlice.reducerPath]: apiSlice.reducer
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(apiSlice.middleware);
   }
 });
+
+setupListeners(store.dispatch);
