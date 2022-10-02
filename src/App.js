@@ -1,24 +1,24 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import CounterPage from './pages/CounterPage';
+import Navbar from './components/Navbar';
+import NotFoundPage from './pages/NotFoundPage';
+import BooksPage from './pages/BooksPage';
+import AddBookPage from './pages/AddBookPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="home" element={<HomePage />}></Route>
+        <Route path="books" element={<BooksPage />}></Route>
+        <Route path="add-book" element={<AddBookPage />}></Route>
+        <Route path="counter" element={<CounterPage />}></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
+      </Routes>
+    </>
   );
 }
 

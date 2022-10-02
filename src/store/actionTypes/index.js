@@ -1,0 +1,11 @@
+export const COUNTER_INCREMENT = 'counter/increment';
+export const COUNTER_DECREMENT = 'counter/decrement';
+export const SET_BOOKS = 'books/fetch';
+export const SET_BOOKS_LOADING = 'books/loading';
+export const SET_BOOKS_ERROR = 'books/error';
+export const SET_ADD_BOOK_TITLE = 'addBook/title';
+export const SET_ADD_BOOK_AUTHOR = 'addBook/author';
+export const SET_ADD_BOOK_IMAGE_URL = 'addBook/imageUrl';
+export const SET_ADD_BOOK_SYNOPSIS = 'addBook/synopsis';
+export const SET_ADD_BOOK_PRICE = 'addBook/price';
+export const CLEAR_ADD_BOOK = 'addBook/clear';
