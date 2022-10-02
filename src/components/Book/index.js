@@ -1,11 +1,13 @@
 import { useDispatch } from 'react-redux';
-import { fetchBooks, deleteBook } from '../../store/actionCreators';
+import { fetchBooks } from '../../store/slices/booksSlice';
+import { deleteBook } from '../../store/slices/bookSlice';
 
 const BookComponent = ({ book }) => {
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
     dispatch(deleteBook(book.id))
+      .unwrap()
       .then(() => {
         dispatch(fetchBooks());
       })

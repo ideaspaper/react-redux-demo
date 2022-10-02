@@ -1,14 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { incrementCounter, decrementCounter } from '../../store/actionCreators';
+import { increment, decrement } from '../../store/slices/counterSlice';
 import Button from '../../components/Button';
 import CounterText from '../../components/CounterText';
 
 const CounterPage = () => {
-  const { count } = useSelector((state) => state.counterReducer);
+  const { count } = useSelector((state) => state.counter);
   const dispatch = useDispatch();
 
   const onClickHandler = (action) => {
-    action === 'increment' ? dispatch(incrementCounter(1)) : dispatch(decrementCounter(1));
+    action === 'increment' ? dispatch(increment(1)) : dispatch(decrement(1));
   };
 
   return (

@@ -1,5 +1,12 @@
-import { createStore } from 'redux';
-import reducers from './reducers';
-import middlewares from './middlewares';
-const store = createStore(reducers, middlewares);
-export default store;
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './slices/counterSlice';
+import { addBookReducer } from './slices/bookSlice';
+import booksReducer from './slices/booksSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+    addBook: addBookReducer,
+    books: booksReducer
+  }
+});

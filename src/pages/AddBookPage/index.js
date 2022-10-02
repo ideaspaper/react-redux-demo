@@ -1,36 +1,36 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
-  setAddBookTitle,
-  setAddBookAuthor,
-  setAddBookImageUrl,
-  setAddBookSynopsis,
-  setAddBookPrice,
+  setTitleAddBook,
+  setAuthorAddBook,
+  setImageUrlAddBook,
+  setSynopsisAddBook,
+  setPriceAddBook,
   addBook,
   clearAddBook
-} from '../../store/actionCreators';
+} from '../../store/slices/bookSlice';
 
 const AddBookPage = () => {
-  const { title, author, imageUrl, synopsis, price } = useSelector((state) => state.addBookReducer);
+  const { title, author, imageUrl, synopsis, price } = useSelector((state) => state.addBook);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onChangeHandler = (event) => {
     switch (event.target.name) {
       case 'title':
-        dispatch(setAddBookTitle(event.target.value));
+        dispatch(setTitleAddBook(event.target.value));
         break;
       case 'author':
-        dispatch(setAddBookAuthor(event.target.value));
+        dispatch(setAuthorAddBook(event.target.value));
         break;
       case 'imageUrl':
-        dispatch(setAddBookImageUrl(event.target.value));
+        dispatch(setImageUrlAddBook(event.target.value));
         break;
       case 'synopsis':
-        dispatch(setAddBookSynopsis(event.target.value));
+        dispatch(setSynopsisAddBook(event.target.value));
         break;
       case 'price':
-        dispatch(setAddBookPrice(event.target.value));
+        dispatch(setPriceAddBook(event.target.value));
         break;
       default:
         break;
@@ -40,6 +40,7 @@ const AddBookPage = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     dispatch(addBook({ title, author, imageUrl, synopsis, price }))
+      .unwrap()
       .then(() => {
         dispatch(clearAddBook());
         navigate('/books');

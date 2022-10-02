@@ -1,16 +1,20 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchBooks } from '../../store/actionCreators';
+import { fetchBooks } from '../../store/slices/booksSlice';
 import Error from '../../components/Error';
 import Loading from '../../components/Loading';
 import Book from '../../components/Book';
 
 const BooksPage = () => {
-  const { books, booksLoading, booksError } = useSelector((state) => state.booksReducer);
+  const { books, booksLoading, booksError } = useSelector((state) => state.books);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchBooks());
+    dispatch(fetchBooks())
+      .unwrap()
+      .catch((error) => {
+        console.log(error);
+      });
   }, [dispatch]);
 
   return (
