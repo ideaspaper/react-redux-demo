@@ -1,36 +1,31 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  setAddBookTitle,
-  setAddBookAuthor,
-  setAddBookImageUrl,
-  setAddBookSynopsis,
-  setAddBookPrice,
-  addBook,
-  clearAddBook
-} from '../../store/actionCreators';
 
 const AddBookPage = () => {
-  const { title, author, imageUrl, synopsis, price } = useSelector((state) => state.addBookReducer);
-  const dispatch = useDispatch();
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [synopsis, setSynopsis] = useState('');
+  const [price, setPrice] = useState(0);
+
   const navigate = useNavigate();
 
   const onChangeHandler = (event) => {
     switch (event.target.name) {
       case 'title':
-        dispatch(setAddBookTitle(event.target.value));
+        setTitle(event.target.value);
         break;
       case 'author':
-        dispatch(setAddBookAuthor(event.target.value));
+        setAuthor(event.target.value);
         break;
       case 'imageUrl':
-        dispatch(setAddBookImageUrl(event.target.value));
+        setImageUrl(event.target.value);
         break;
       case 'synopsis':
-        dispatch(setAddBookSynopsis(event.target.value));
+        setSynopsis(event.target.value);
         break;
       case 'price':
-        dispatch(setAddBookPrice(event.target.value));
+        setPrice(event.target.price);
         break;
       default:
         break;
@@ -39,9 +34,16 @@ const AddBookPage = () => {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    dispatch(addBook({ title, author, imageUrl, synopsis, price }))
-      .then(() => {
-        dispatch(clearAddBook());
+    fetch('http://localhost:8080/books', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, author, imageUrl, synopsis, price })
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('cannot post book');
+        return response.json();
+      })
+      .then((data) => {
         navigate('/books');
       })
       .catch((error) => {

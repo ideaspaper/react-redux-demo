@@ -1,19 +1,4 @@
-import { useDispatch } from 'react-redux';
-import { fetchBooks, deleteBook } from '../../store/actionCreators';
-
-const BookComponent = ({ book }) => {
-  const dispatch = useDispatch();
-
-  const handleOnClick = () => {
-    dispatch(deleteBook(book.id))
-      .then(() => {
-        dispatch(fetchBooks());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+const BookComponent = ({ book, onClickDelete }) => {
   return (
     <div>
       <h2>{book.title}</h2>
@@ -21,7 +6,7 @@ const BookComponent = ({ book }) => {
       <p>ID: {book.id}</p>
       <p>Author: {book.author}</p>
       <p>Synopsis: {book.synopsis}</p>
-      <button onClick={handleOnClick}>Delete</button>
+      <button onClick={() => onClickDelete(book.id)}>Delete</button>
     </div>
   );
 };
